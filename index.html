@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css" rel="stylesheet"/>
+    <link  href="https://cdn.jsdelivr.net/npm/vuetify@3.4.8/dist/vuetify.min.css" rel="stylesheet"/>
+    
+    <title>Project Waste Not</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.4.8/dist/vuetify.min.js"></script>
+    
+    
+    <div id="app"></div>
+    
+
+    <script type="text/x-template" id="app-template">
+        <v-app>
+            <v-card
+                class="mx-auto my-auto elevation-10"
+                width="600"
+                color="primary"
+                append-icon="mdi-human-greeting"
+            >
+                <template v-slot:title>
+                    Inventory
+                </template>
+                <v-card-text>
+                    <v-sheet color="transparent" width="200px">
+
+                        <v-text-field
+                            v-model="productSearch"
+                            label="Product search"
+                            append-inner-icon="mdi-magnify"
+                            id="id"
+                        ></v-text-field>
+                    </v-sheet>
+                </v-card-text>
+            </v-card>
+        </v-app>
+    </script>
+    <script type="module">
+        import { data } from "./data.js";
+        import { headers } from "./headers.js";
+        const { createApp, ref } = Vue
+        const { createVuetify } = Vuetify
+        
+        const vuetify = createVuetify()
+
+        const app = createApp({
+            template: "#app-template", 
+            setup() {
+                const productSearch = ref('')
+                const message = ref('Hello vue!')
+                return { message }
+            }
+        })
+        .use(vuetify)
+        .mount("#app")
+    </script>
+</body>
+</html>
+
+
+
+
