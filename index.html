@@ -20,29 +20,37 @@
         <v-app>
             <v-card
                 class="mx-auto my-auto elevation-10"
-                width="600"
-                color="primary"
-                append-icon="mdi-human-greeting"
+                width="800"
+                append-icon="mdi-cube-outline"
             >
                 <template v-slot:title>
                     Inventory
                 </template>
                 <v-card-text>
                     <v-sheet color="transparent" width="200px">
-
                         <v-text-field
                             v-model="productSearch"
                             label="Product search"
                             append-inner-icon="mdi-magnify"
                             id="id"
-                        ></v-text-field>
+                        />
                     </v-sheet>
+                </v-card-text>
+                <v-card-text>
+                    <v-data-table
+                        :headers="headers"
+                        :items="items"
+                        class="elevation-1"
+                        item-key="product"
+                        :loading="loading"
+                        :search="productSearch"
+                    />
                 </v-card-text>
             </v-card>
         </v-app>
     </script>
     <script type="module">
-        import { data } from "./data.js";
+        import { items } from "./items.js";
         import { headers } from "./headers.js";
         const { createApp, ref } = Vue
         const { createVuetify } = Vuetify
@@ -53,8 +61,19 @@
             template: "#app-template", 
             setup() {
                 const productSearch = ref('')
-                const message = ref('Hello vue!')
-                return { message }
+                const loading = ref(true)
+
+                setTimeout(() => {
+                    loading.value = false        
+                }, 2000);
+                
+                
+                return { 
+                    productSearch,
+                    headers,
+                    loading,
+                    items 
+                }
             }
         })
         .use(vuetify)

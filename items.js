@@ -1,4 +1,4 @@
-const data = [
+const items = [
     {
         item_code: 'ACC1',
         product: 'Apple granny smith',
@@ -37,4 +37,4 @@ const data = [
    },
 ]
 
-export { data }
+export { items }
