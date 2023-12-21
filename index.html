@@ -58,8 +58,6 @@
         </v-app>
     </script>
     <script type="module">
-        import { data } from "./items.js";
-        import { headers } from "./headers.js";
         const { createApp, ref, computed, watch } = Vue
         const { createVuetify } = Vuetify
         
@@ -71,7 +69,58 @@
                 const productSearch = ref('')
                 const loading = ref(true)
                 const editAvailableQuantity = ref('')
-                const items = ref(data)
+                const headers = ref(
+                [
+                    { title: 'Item code', value: 'item_code', width: '100px' },
+                    { title: 'Product', value: 'product', sortable: true, width: '170px' },
+                    { title: 'Package', value: 'package', sortable: true, width: '100px'  },
+                    { title: 'Available units', value: 'available_units', sortable: true, width: '150px' },
+                    { title: 'Category', value: 'category', width: '70px' },
+                    { title: 'Last updated', value: 'category', sortable: true, width: '140px' },
+                    { title: 'Edit available quantity', value: 'edit_available_quantity' },
+                ])
+                const items = ref([
+                {
+                    id: 0,
+                    item_code: 'ACC1',
+                    product: 'Apple granny smith',
+                    package: '40 LB',
+                    available_units: '3,638,066',
+                    category: 'Fruits',
+                    last_updated: '2021-02-05 08:28:36',
+                    edit_available_quantity: '',
+                },  
+                {
+                    id: 1,
+                    item_code: 'ACC1',
+                    product: 'Pineapple crownless',
+                    package: '7 CT',
+                    available_units: '6,462,020',
+                    category: 'Fruits',
+                    last_updated: '2021-02-03 19:49:33',
+                    edit_available_quantity: '',
+                },
+                {
+                    id: 2,
+                    item_code: 'ACC1',
+                    product: 'Banana green',
+                    package: '8 CT',
+                    available_units: '8,664,948',
+                    category: 'Fruits',
+                    last_updated: '2021-02-02 19:17:15',
+                    edit_available_quantity: '',
+                },
+                {
+                    id: 3,
+                    item_code: 'ACC1',
+                    product: 'Banana green tip',
+                    package: '40 LB',
+                    available_units: '2,592,335',
+                    category: 'Fruits',
+                    last_updated: '2021-02-02 09:46:33',
+                    edit_available_quantity: '',
+                },
+            ])
 
                 setTimeout(() => loading.value = false, 2000);
 
