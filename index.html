@@ -20,7 +20,7 @@
         <v-app>
             <v-card
                 class="mx-auto my-auto elevation-10"
-                width="800"
+                width="1000"
                 append-icon="mdi-cube-outline"
             >
                 <template v-slot:title>
@@ -32,7 +32,6 @@
                             v-model="productSearch"
                             label="Product search"
                             append-inner-icon="mdi-magnify"
-                            id="id"
                         />
                     </v-sheet>
                 </v-card-text>
@@ -40,19 +39,28 @@
                     <v-data-table
                         :headers="headers"
                         :items="items"
-                        class="elevation-1"
                         item-key="product"
                         :loading="loading"
                         :search="productSearch"
-                    />
+                        :custom-filter="filterItems"
+                    >
+                        <template #item.edit_available_quantity="{ item }">
+                            <v-text-field
+                                :key="item.id+'id'"
+                                v-model="item.available_units"
+                                prefix="Qty."
+                                append-inner-icon="mdi-magnify"
+                            />
+                        </template>
+                    </v-data-table>
                 </v-card-text>
             </v-card>
         </v-app>
     </script>
     <script type="module">
-        import { items } from "./items.js";
+        import { data } from "./items.js";
         import { headers } from "./headers.js";
-        const { createApp, ref } = Vue
+        const { createApp, ref, computed, watch } = Vue
         const { createVuetify } = Vuetify
         
         const vuetify = createVuetify()
@@ -62,18 +70,28 @@
             setup() {
                 const productSearch = ref('')
                 const loading = ref(true)
+                const editAvailableQuantity = ref('')
+                const items = ref(data)
 
-                setTimeout(() => {
-                    loading.value = false        
-                }, 2000);
-                
-                
-                return { 
-                    productSearch,
-                    headers,
-                    loading,
-                    items 
+                setTimeout(() => loading.value = false, 2000);
+
+                function filterItems (value, query, item) {
+                    const item_code = item.columns['item_code'].toLowerCase()
+                    const product = item.columns['product'].toLowerCase()
+                    const category = item.columns['category'].toLowerCase()
+
+                    const val = value.toLowerCase()
+                    const q = query.toLowerCase()
+                    
+                    return val != null &&
+                        q != null &&
+                        typeof val === 'string' &&
+                        (item_code.includes(q) ||
+                        product.includes(q) ||
+                        category.includes(q))
                 }
+
+                return { productSearch, headers, loading, filterItems, items }
             }
         })
         .use(vuetify)
