@@ -1,4 +1,4 @@
-# Table of Contents App
+# Project Waste Not
 
 This small project is a single-file application demonstrating a table of contents that allows for easy searching and editing the available units column with the last column text-field.
 
